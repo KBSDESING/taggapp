@@ -1,0 +1,23 @@
+# Environnement virtuel
+env/
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# Base de données
+db.sqlite3
+*.sqlite3
+# Logs
+*.log
+# Variables d'environnement
+.env
+# Fichiers statiques compilés
+staticfiles/
+# VS Code
+.vscode/
+# Windows
+Thumbs.db
+desktop.ini
+# Mac
+.DS_Store

@@ -1,0 +1,108 @@
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #F5F5F5;
+        }
+        .navbar {
+            background: #2E7D32;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: .9rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .type-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            padding: .7rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: .9rem;
+            border: 2px solid #2E7D32;
+        }
+        .btn-active {
+            background: #2E7D32;
+            color: white;
+        }
+        .btn-inactive {
+            background: white;
+            color: #2E7D32;
+        }
+        .groupe-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+        }
+        .groupe-titre {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2E7D32;
+            margin-bottom: 1rem;
+            padding-bottom: .5rem;
+            border-bottom: 2px solid #C8E6C9;
+            display: flex;
+            justify-content: space-between;
+        }
+        .enfants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: .8rem;
+        }
+        .enfant-card {
+            background: #F1F8E9;
+            border-radius: 6px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #C8E6C9;
+        }
+        .enfant-initiale {
+            width: 50px;
+            height: 50px;
+            background: #2E7D32;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 0 auto .5rem;
+        }
+        .enfant-nom {
+            font-weight: 600;
+            font-size: .85rem;
+        }
+        .enfant-famille {
+            font-size: .75rem;
+            color: #777;
+        }
+        .nb-enfants {
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: .2rem .6rem;
+            border-radius: 4px;
+            font-size: .8rem;
+        }
+        .retour {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: #2E7D32;
+            text-decoration: none;
+            font-weight: 600;
+        }

@@ -1,0 +1,1 @@
+web: gunicorn taggapp.wsig --log-file -

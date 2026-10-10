@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagg'App — Tableau de bord</title>
+    <link rel="stylesheet" href="{% static 'dashboard/login.css' %}">
+</head>
+<body>
+<div class="login-card">
+    <div class="logo">🎓</div>
+    <h1>Tagg'App</h1>
+    <p class="subtitle">Tableau de bord facilitateur</p>
+    {% if error %}
+    <div class="error">
+        ❌ {{ error }}
+    </div>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Nom d'utilisateur</label>
+            <input
+                type="text"
+                name="username"
+                placeholder="Entrez votre nom"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label>Mot de passe</label>
+            <input
+                type="password"
+                name="password"
+                placeholder="Entrez votre mot de passe"
+                required
+            />
+        </div>
+        <button type="submit" class="btn-login">
+            Se connecter →
+        </button>
+    </form>
+</div>
+</body>
+</html>

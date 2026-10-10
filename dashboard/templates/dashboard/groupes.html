@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagg'App — Tableau de bord</title>
+    <link rel="stylesheet" href="{% static 'dashboard/Stylegroupe.css' %}">
+</head>
+<body>
+<nav class="navbar">
+    <h1>🎓 Tagg'App — Formation des groupes</h1>
+    <a href="/">← Tableau de bord</a>
+</nav>
+<div class="container">
+    <!-- Sélecteur type -->
+    <div class="type-selector">
+        <a href="/groupes/?type=lecture"
+           class="btn {% if type_groupe == 'lecture' %}btn-active{% else %}btn-inactive{% endif %}">
+            📖 Groupes Lecture
+        </a>
+        <a href="/groupes/?type=calcul"
+           class="btn {% if type_groupe == 'calcul' %}btn-active{% else %}btn-inactive{% endif %}">
+            🔢 Groupes Calcul
+        </a>
+    </div>
+    <!-- Groupes par niveau -->
+    {% for niveau, enfants in groupes.items %}
+    <div class="groupe-card">
+        <div class="groupe-titre">
+            <span>
+                {% if type_groupe == 'lecture' %}
+                    📖 Groupe Lecture — Niveau {{ niveau }}
+                {% else %}
+                    🔢 Groupe Calcul — Niveau {{ niveau }}
+                {% endif %}
+            </span>
+            <span class="nb-enfants">
+                {{ enfants|length }} enfant(s)
+            </span>
+        </div>
+        <div class="enfants-grid">
+            {% for enfant in enfants %}
+            <div class="enfant-card">
+                <div class="enfant-initiale">
+                    {{ enfant.prenom|first|upper }}
+                </div>
+                <div class="enfant-nom">{{ enfant.prenom }}</div>
+                <div class="enfant-famille">{{ enfant.famille }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% empty %}
+    <p style="text-align:center; color:#999; padding:2rem;">
+        Aucun enfant inscrit pour le moment.
+    </p>
+    {% endfor %}
+</div>
+</body>
+</html>

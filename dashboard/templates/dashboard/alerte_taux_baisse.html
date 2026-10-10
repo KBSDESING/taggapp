@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagg'App — Taux en baisse</title>
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+</head>
+<body>
+<nav class="navbar">
+    <h1>🎓 Tagg'App</h1>
+    <div class="navbar-right">
+        <a href="/" class="btn-deconnexion">← Tableau de bord</a>
+        <a href="/logout/" class="btn-deconnexion">Déconnexion</a>
+    </div>
+</nav>
+<div class="container">
+    <div class="page-header">
+        <div>
+            <div class="page-title">
+                📉 Taux de réussite en baisse
+            </div>
+            <div class="page-subtitle">
+                {{ total }} enfant(s) en difficulté
+            </div>
+        </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--bleu);">
+        <div class="card-header">
+            <div class="card-title" style="color:var(--bleu);">
+                Liste des enfants en difficulté
+            </div>
+            <span class="badge badge-bleu">{{ total }}</span>
+        </div>
+        <div class="card" style="padding:1.2rem 1.5rem; margin-bottom:1rem;">
+    {% include 'dashboard/includes/recherche.html' with placeholder="Rechercher un élève, une famille, un facilitateur..." %}
+</div>
+        <div class="card-body">
+            {% if taux_baisse %}
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Enfant</th>
+                            <th>Famille</th>
+                            <th>Niveau Lecture</th>
+                            <th>Niveau Calcul</th>
+                            <th>Taux actuel</th>
+                            <th>Taux précédent</th>
+                            <th>Évolution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in taux_baisse %}
+                        <tr>
+                            <td>
+                                <div class="enfant-cell">
+                                    <div class="avatar">
+                                        {{ item.enfant.prenom|first|upper }}
+                                    </div>
+                                    <strong>{{ item.enfant.prenom }}</strong>
+                                </div>
+                            </td>
+                            <td>{{ item.enfant.famille }}</td>
+                            <td>
+                                <span class="badge badge-niveau">
+                                    L{{ item.enfant.niveau_lecture }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-niveau">
+                                    C{{ item.enfant.niveau_calcul }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-rouge">
+                                    {{ item.taux_actuel }}%
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-vert">
+                                    {{ item.taux_precedent }}%
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-rouge">
+                                    📉 En baisse
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% include 'dashboard/includes/pagination.html' %}
+             {% else %}
+<div class="empty-state">
+    <div class="empty-state-icon">
+        {% if recherche %}🔍{% else %}✅{% endif %}
+    </div>
+    <p>
+        {% if recherche %}
+            Aucun résultat pour
+            "<strong>{{ recherche }}</strong>" —
+            cet élément n'est pas enregistré dans la liste.
+            <a href="?">Effacer la recherche</a>
+        {% else %}
+            Tous les enfants progressent !
+        {% endif %}
+    </p>
+</div>
+{% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #E8F5E9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,.1);
+            text-align: center;
+        }
+        .logo {
+            font-size: 3rem;
+            margin-bottom: .5rem;
+        }
+        h1 {
+            color: #2E7D32;
+            font-size: 1.6rem;
+            margin-bottom: .3rem;
+        }
+        .subtitle {
+            color: #777;
+            font-size: .85rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: .82rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: .4rem;
+        }
+        input {
+            width: 100%;
+            padding: .75rem 1rem;
+            border: 1px solid #DDD;
+            border-radius: 6px;
+            font-size: .9rem;
+            transition: border-color .2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #2E7D32;
+        }
+        .btn-login {
+            width: 100%;
+            padding: .85rem;
+            background: #2E7D32;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: .5rem;
+        }
+        .btn-login:hover {
+            background: #1B5E20;
+        }
+        .error {
+            background: #FFEBEE;
+            color: #E53935;
+            padding: .75rem;
+            border-radius: 6px;
+            font-size: .85rem;
+            margin-bottom: 1rem;
+        }

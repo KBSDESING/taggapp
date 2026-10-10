@@ -1,0 +1,133 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% block title %}Tagg'App Admin{% endblock %}
+{% block branding %}
+<div id="site-name">
+    <a href="{% url 'admin:index' %}">
+       
+        <strong style="color:white; font-size:1.7rem;">
+            Tagg'App
+        </strong>
+        <span style="color:white; font-size:1.5rem; margin-left:.5rem;">
+            Administration
+        </span>
+    </a>
+</div>
+{% endblock %}
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    /* ── COULEURS PRINCIPALES ── */
+    :root {
+        --primary: #1B5E20;
+        --secondary: #2E7D32;
+        --accent: #43A047;
+    }
+    /* ── HEADER ── */
+    #header {
+        background: linear-gradient(
+            135deg, #1B5E20 0%, #2E7D32 100%
+        ) !important;
+        color: white !important;
+        box-shadow: 0 2px 12px rgba(27,94,32,.3);
+    }
+    #branding h1 a:link,
+    #branding h1 a:visited {
+        color: white !important;
+       
+    }
+    /* ── NAVIGATION ── */
+    #user-tools a {
+        color:white !important;
+        border-bottom: 1px solid rgba(255,255,255,.3);
+        font-size: .85rem;
+    }
+    #user-tools a:hover {
+        color: white !important;
+    }
+    /* ── MODULES ── */
+    .module h2,
+    .module caption {
+        background: #2E7D32 !important;
+        color: white !important;
+       
+        
+    }
+    /* ── BOUTONS ── */
+    .button,
+    input[type=submit],
+    input[type=button],
+    .submit-row input,
+    a.button {
+        background: #2E7D32 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 6px !important;
+        padding: .5rem 1.2rem !important;
+    }
+    .button:hover,
+    input[type=submit]:hover {
+        background: #1B5E20 !important;
+    }
+    .button.default,
+    input[type=submit].default {
+        background: #43A047 !important;
+    }
+    /* ── LIENS ── */
+    a:link, a:visited {
+        color: #2E7D32 !important;
+    }
+    /* ── SIDEBAR ── */
+    #nav-sidebar .current-app .section:link,
+    #nav-sidebar .current-app .section:visited {
+        color: #2E7D32 !important;
+    }
+    /* ── TABLEAU ── */
+    #result_list thead th {
+        background: #E8F5E9 !important;
+        color: #1B5E20 !important;
+    }
+    #result_list tr:hover td {
+        background: #f1e9f8 !important;
+    }
+    /* ── BREADCRUMBS ── */
+    div.breadcrumbs {
+        background: #388E3C !important;
+        color: white !important;
+    }
+    div.breadcrumbs a {
+        color: rgba(255,255,255,.85) !important;
+    }
+    /* ── PAGE DE CONNEXION ── */
+    body.login {
+        background:white !important;
+    }
+    #login-form {
+        background: rgb(22, 73, 9) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,.1) !important;
+        padding: 2rem !important;
+    }
+    .login #header {
+        border-radius: 12px 12px 12px 12px !important;
+        padding: 1.5rem 2rem !important; 
+    }
+    /* ── MESSAGES ── */
+    .messagelist .success {
+        background: white !important;
+        color: #1B5E20 !important;
+        border-left: 4px solid #2E7D32 !important;
+    }
+    /* ── FOND GÉNÉRAL ── */
+    body {
+        background:rgb(255, 255, 255) !important;
+        font-family: 'Segoe UI', Arial, sans-serif !important;
+    }
+    #content {
+        background: white !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,.06) !important;
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}

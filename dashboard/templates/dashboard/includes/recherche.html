@@ -1,0 +1,26 @@
+<form method="GET" action="">
+    <div class="recherche-wrapper">
+        <div class="recherche-input">
+            <span class="recherche-icon">🔍</span>
+            <input
+                type="text"
+                name="q"
+                value="{{ recherche }}"
+                placeholder="{{ placeholder|default:'Rechercher un élève, une famille...' }}"
+                class="recherche-field"
+            />
+            {% if recherche %}
+            <a href="?" class="recherche-clear">✕</a>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-vert">
+            Rechercher
+        </button>
+    </div>
+    {% if recherche %}
+    <p class="recherche-resultat">
+        Résultats pour "<strong>{{ recherche }}</strong>"
+        — <a href="?">Effacer la recherche</a>
+    </p>
+    {% endif %}
+</form>

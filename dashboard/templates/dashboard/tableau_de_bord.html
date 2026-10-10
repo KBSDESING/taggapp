@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagg'App — Tableau de bord</title>
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+    <h1>🎓 Tagg'App</h1>
+    <div class="navbar-right">
+        <div class="navbar-user">
+            <div class="navbar-avatar">
+                {{ request.user.username|first|upper }}
+            </div>
+            <span>{{ request.user.username }}</span>
+        </div>
+        <a href="/logout/" class="btn-deconnexion">
+            Déconnexion
+        </a>
+    </div>
+</nav>
+<div class="container">
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <div>
+            <div class="page-title">Tableau de bord facilitateur</div>
+            <div class="page-subtitle">
+                Suivi de la progression des enfants
+            </div>
+        </div>
+        <div class="actions">
+            <a href="/groupes/" class="btn btn-bleu">
+                👥 Former les groupes
+            </a>
+            <a href="/export-csv/" class="btn btn-vert">
+                📥 Exporter CSV
+            </a>
+        </div>
+    </div>
+    <!-- STATS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">👦</div>
+            <div class="stat-content">
+                <div class="stat-number">{{ total_enfants }}</div>
+                <div class="stat-label">Enfants inscrits</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📚</div>
+            <div class="stat-content">
+                <div class="stat-number">{{ actifs_semaine }}</div>
+                <div class="stat-label">Actifs cette semaine</div>
+            </div>
+        </div>
+        <div class="stat-card alerte">
+            <div class="stat-icon">⚠️</div>
+            <div class="stat-content">
+                <div class="stat-number">{{ nb_alertes }}</div>
+                <div class="stat-label">Alertes</div>
+            </div>
+        </div>
+        <div class="stat-card info">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-content">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Niveaux disponibles</div>
+            </div>
+        </div>
+    </div>
+   
+    <!-- ALERTES RÉSUMÉ -->
+<div class="stats-grid">
+    <a href="/alertes/sans-seance/" class="stat-card alerte"
+       style="text-decoration:none; cursor:pointer;">
+        <div class="stat-icon">📞</div>
+        <div class="stat-content">
+            <div class="stat-number">{{ sans_seance_3j|length }}</div>
+            <div class="stat-label">Sans séance depuis 3 jours</div>
+            <div style="font-size:.72rem; color:#C62828; margin-top:.3rem;">
+                Voir la liste → 
+            </div>
+        </div>
+    </a>
+    <a href="/alertes/sans-progres/" class="stat-card"
+       style="border-left-color:#E65100; text-decoration:none; cursor:pointer;">
+        <div class="stat-icon">🟡</div>
+        <div class="stat-content">
+            <div class="stat-number" style="color:#E65100;">
+                {{ sans_progres|length }}
+            </div>
+            <div class="stat-label">Sans progrès après 10 séances</div>
+            <div style="font-size:.72rem; color:#E65100; margin-top:.3rem;">
+                Voir la liste →
+            </div>
+        </div>
+    </a>
+    <a href="/alertes/taux-baisse/" class="stat-card info"
+       style="text-decoration:none; cursor:pointer;">
+        <div class="stat-icon">📉</div>
+        <div class="stat-content">
+            <div class="stat-number">{{ taux_baisse|length }}</div>
+            <div class="stat-label">Taux de réussite en baisse</div>
+            <div style="font-size:.72rem; color:#1565C0; margin-top:.3rem;">
+                Voir la liste →
+            </div>
+        </div>
+    </a>
+</div>
+<!-- RECHERCHE -->
+<div class="card" style="padding:1.2rem 1.5rem; margin-bottom:1rem;">
+    {% include 'dashboard/includes/recherche.html' with placeholder="Rechercher un élève, une famille, un facilitateur..." %}
+</div>
+    <!-- LISTE ENFANTS -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                👦 Liste des enfants
+            </div>
+            <span class="badge badge-vert">
+                {{ total_enfants }} enfants
+            </span>
+        </div>
+        <div class="card-body">
+            {% if enfants %}
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Enfant</th>
+                            <th>Famille</th>
+                            <th>Facilitateur</th>
+                            <th>Lecture</th>
+                            <th>Calcul</th>
+                            <th>Inscrit le</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for enfant in enfants %}
+                        <tr>
+                            <td>
+                                <div class="enfant-cell">
+                                    <div class="avatar">
+                                        {{ enfant.prenom|first|upper }}
+                                    </div>
+                                    <strong>{{ enfant.prenom }}</strong>
+                                </div>
+                            </td>
+                            <td>{{ enfant.famille }}</td>
+                            <td>
+                                {% if enfant.facilitateur %}
+                                    {{ enfant.facilitateur.get_full_name|default:enfant.facilitateur.username }}
+                                {% else %}
+                                    <span style="color:#999;">—</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="badge badge-niveau">
+                                    Lecture {{ enfant.niveau_lecture }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-niveau">
+                                    Calcul {{ enfant.niveau_calcul }}
+                                </span>
+                            </td>
+                            <td style="color:var(--gris);">
+                                {{ enfant.date_inscription|date:"d/m/Y" }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- PAGINATION -->
+            {% if page_obj.paginator.num_pages > 1 %}
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    Page {{ page_obj.number }} sur
+                    {{ page_obj.paginator.num_pages }}
+                    — {{ page_obj.paginator.count }} enfants
+                </div>
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">«</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">‹</a>
+                    {% endif %}
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <span class="current">{{ num }}</span>
+                        {% else %}
+                            <a href="?page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">›</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">»</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    {% if recherche %}🔍{% else %}✅{% endif %}
+                </div>
+                <p>
+                    {% if recherche %}
+                        Aucun résultat pour
+                         "<strong>{{ recherche }}</strong>" —
+                         cet élément n'est pas enregistré dans la liste.
+                         <a href="?">Effacer la recherche</a>
+                     {% else %}
+                         Tous les enfants progressent !
+                     {% endif %}
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
